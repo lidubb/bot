@@ -41,9 +41,6 @@ async def on_startup(bot: Bot):
     log.info("Webhook установлен: %s", url)
 
 
-async def on_shutdown(bot: Bot):
-    await bot.delete_webhook()
-    log.info("Webhook удалён")
 
 
 async def health(request):
@@ -52,7 +49,6 @@ async def health(request):
 
 def main():
     dp.startup.register(on_startup)
-    dp.shutdown.register(on_shutdown)
 
     app = web.Application()
     app.router.add_get("/", health)  # для проверки доступности
