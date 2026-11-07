@@ -26,7 +26,7 @@ dp = Dispatcher()
 @dp.message(CommandStart())
 async def cmd_start(message: types.Message):
     log.info("start from user_id=%s", message.from_user.id)
-    await message.answer(f"Привет, {message.from_user.first_name}! Я работаю в облаке.")
+    await message.answer(f"Привет, {message.from_user.first_name}! Меня обновили автодеплоем.")
 
 
 @dp.message(lambda m: m.text)
