@@ -14,7 +14,6 @@ log = logging.getLogger("bot")
 
 TOKEN = os.getenv("BOT_TOKEN")
 SECRET = os.getenv("WEBHOOK_SECRET", "change_me_secret")
-# Render сам задаёт RENDER_EXTERNAL_URL, на других платформах укажите BASE_URL
 BASE_URL = os.getenv("BASE_URL") or os.getenv("RENDER_EXTERNAL_URL")
 PORT = int(os.getenv("PORT", "8080"))
 WEBHOOK_PATH = "/webhook"
@@ -41,8 +40,6 @@ async def on_startup(bot: Bot):
     log.info("Webhook установлен: %s", url)
 
 
-
-
 async def health(request):
     return web.Response(text="OK")
 
@@ -51,7 +48,7 @@ def main():
     dp.startup.register(on_startup)
 
     app = web.Application()
-    app.router.add_get("/", health)  # для проверки доступности
+    app.router.add_get("/", health)
     SimpleRequestHandler(dp, bot, secret_token=SECRET).register(app, path=WEBHOOK_PATH)
     setup_application(app, dp, bot=bot)
     web.run_app(app, host="0.0.0.0", port=PORT)
